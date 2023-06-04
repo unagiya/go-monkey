@@ -8,12 +8,12 @@ type Token struct {
 }
 
 const (
-	ILLEGAL = "ILLEGAL"
-	EOF     = "EOF"
+	ILLEGAL TokenType = "ILLEGAL"
+	EOF               = "EOF"
 
 	// 識別子 + リテラル
-	INDENT = "INDENT" // add, foobar, x, y, ...
-	INT    = "INT"    // 123456
+	IDENT = "IDENT" // add, foobar, x, y, ...
+	INT   = "INT"   // 123456
 
 	// 演算子
 	ASSIGN = "="
@@ -32,3 +32,15 @@ const (
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
 )
+
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+func LookupIdent(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
+}
